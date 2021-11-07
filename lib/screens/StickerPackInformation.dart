@@ -130,7 +130,7 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("${stickerPack[1]} Stickers"),
+        title: Text("${stickerPack[1]}"),
       ),
       body: Stack(children: [
         Column(

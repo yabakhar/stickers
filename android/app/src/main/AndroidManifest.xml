@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bestickers.hijab">
+    package="com.hijab2.bestecker2">
    <application
         android:label="whatsapp_stickers_flutter"
         android:icon="@mipmap/ic_launcher">

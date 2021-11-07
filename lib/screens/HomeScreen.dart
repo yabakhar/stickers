@@ -8,7 +8,6 @@ import '../utils/anchored_adaptive_banner_adSize.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_stickers_flutter/screens/StickerList.dart';
 
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -49,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    
 
     // banner = BannerAd(
     //     adUnitId: BannerAd.testAdUnitId,
@@ -77,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Trendy Stickers',
+          'Memoji Stickers',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -87,19 +85,28 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               icon: Icon(
                 Icons.share,
-                color: Colors.grey,
+                color: Color(0xff62c1d9),
               ),
               onPressed: () {
                 Share.text(
                     'Share App',
-                    'https://play.google.com/store/apps/details?id=com.noorisofttech.trendy_stickers',
+                    'https://play.google.com/store/apps/details?id=com.hijab2.bestecker2',
                     'text/plain');
               }),
-          IconButton(
-              icon: Icon(
-                Icons.star_rate,
-                color: Colors.grey,
-              ),
+          TextButton(
+              child: Container(
+                  margin: const EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.all(10.0),
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Color(0xff62c1d9),
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Center(
+                      child: Text(
+                    "More Apps",
+                    style: TextStyle(color: Colors.white),
+                  ))),
               onPressed: () {
                 _launchURL();
               }),
@@ -126,8 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _launchURL() async {
-    const url =
-        'https://play.google.com/store/apps/details?id=com.noorisofttech.trendy_stickers';
+    const url = 'https://play.google.com/store/apps/developer?id=BeStickers';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
