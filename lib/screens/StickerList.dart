@@ -2,16 +2,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_whatsapp_stickers/flutter_whatsapp_stickers.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:whatsapp_stickers_flutter/components/ReusableImage.dart';
 import 'package:whatsapp_stickers_flutter/modals/InstallStickersModal.dart';
 import 'package:whatsapp_stickers_flutter/modals/StickerListModal.dart';
 import 'package:whatsapp_stickers_flutter/utils/utils.dart';
+import '../services/ads_manager.dart';
 
 import 'StickerPackInformation.dart';
 
-
 class StickerList extends StatefulWidget {
+  BannerAd banner;
+
+  StickerList({this.banner});
   @override
   _StickerListState createState() => _StickerListState();
 }
@@ -66,6 +70,7 @@ class _StickerListState extends State<StickerList> {
   void initState() {
     super.initState();
     _loadStickers();
+    AdsManager.createInterAd();
   }
 
   @override
@@ -75,6 +80,8 @@ class _StickerListState extends State<StickerList> {
       child: Consumer<StickerListModel>(
         builder: (context, sticker, child) {
           return ListView.separated(
+            scrollDirection: Axis.vertical,
+            // shrinkWrap: true,
             itemCount: sticker.stickerListSize,
             itemBuilder: (context, index) {
               if (sticker.stickerListSize == 0) {
@@ -84,7 +91,8 @@ class _StickerListState extends State<StickerList> {
               } else {
                 var stickerId = sticker.getStickerList[index]['identifier'];
                 var stickerName = sticker.getStickerList[index]['name'];
-                var stickerPublisher = sticker.getStickerList[index]['publisher'];
+                var stickerPublisher =
+                    sticker.getStickerList[index]['publisher'];
                 var stickerTrayIcon =
                     sticker.getStickerList[index]['tray_image_file'];
                 var tempStickerList = List();
@@ -98,7 +106,8 @@ class _StickerListState extends State<StickerList> {
                 } else {
                   stickerInstalled = false;
                 }
-                tempStickerList.add(sticker.getStickerList[index]['identifier']);
+                tempStickerList
+                    .add(sticker.getStickerList[index]['identifier']);
                 tempStickerList.add(sticker.getStickerList[index]['name']);
                 tempStickerList.add(sticker.getStickerList[index]['publisher']);
                 tempStickerList
@@ -127,19 +136,27 @@ class _StickerListState extends State<StickerList> {
     );
   }
 
-  Widget stickerPack(List stickerList, List stickers, String name, String publisher,
-      String identifier, String stickerTrayIcon, bool installed) {
+  Widget stickerPack(
+      List stickerList,
+      List stickers,
+      String name,
+      String publisher,
+      String identifier,
+      String stickerTrayIcon,
+      bool installed) {
     Widget depInstallWidget;
 
     List<Widget> images = [];
 
-    for(int i=0; i<5; i++){
+    for (int i = 0; i < 5; i++) {
       images.add(
         ReusableImage(
           imagePath: "sticker_packs/$identifier/${stickers[i]['image_file']}",
         ),
       );
-      images.add(SizedBox(width: 5,));
+      images.add(SizedBox(
+        width: 5,
+      ));
     }
 
     if (installed == true) {
@@ -159,6 +176,9 @@ class _StickerListState extends State<StickerList> {
         color: Colors.teal,
         tooltip: 'Add Sticker to WhatsApp',
         onPressed: () async {
+          // heeeerrrrreeeee <=x=>
+          print("interrrr ===========> 1");
+          
           whatsAppStickers.addStickerPack(
             packageName: WhatsAppPackage.Consumer,
             stickerPackIdentifier: identifier,
@@ -168,11 +188,13 @@ class _StickerListState extends State<StickerList> {
               result: result,
               error: error,
               successCallback: () async {
+                 AdsManager.showInter();
                 _checkInstallationStatuses();
               },
               context: context,
             ),
           );
+          AdsManager.createInterAd();
         },
       );
     }
@@ -183,19 +205,23 @@ class _StickerListState extends State<StickerList> {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) =>
-                StickerPackInformation(stickerList),
+                StickerPackInformation(stickerList, widget.banner),
           ));
         },
         title: Row(
           children: [
             Text(
               "$name",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.lightGreen),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.lightGreen),
             ),
             SizedBox(
               width: 5,
             ),
-            Text("$publisher", style: TextStyle(fontSize: 12, color: Colors.grey)),
+            Text("$publisher",
+                style: TextStyle(fontSize: 12, color: Colors.grey)),
           ],
         ),
         subtitle: Row(
