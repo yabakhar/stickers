@@ -118,8 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             bottom: 3,
             child: Container(
-                width: size.width.toDouble(),
-                height: size.height.toDouble(),
+                width: (size != null) ? size.width.toDouble() : MediaQuery.of(context).size.width,
+                 height: (size != null) ? size.height.toDouble() : 100,
                 child: /* trenary to check if the id exist in the db then take an action*/
                     Visibility(
                         visible: showAd,
