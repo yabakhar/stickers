@@ -201,8 +201,10 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
         Positioned(
           bottom: 3,
           child: Container(
-            width: size.width.toDouble(),
-            height: size.height.toDouble(),
+            width: (size != null)
+                ? size.width.toDouble()
+                : MediaQuery.of(context).size.width,
+            height: (size != null) ? size.height.toDouble() : 100,
             child: Visibility(
                 visible: showAd,
                 child: banner == null ? SizedBox() : AdWidget(ad: banner)),
