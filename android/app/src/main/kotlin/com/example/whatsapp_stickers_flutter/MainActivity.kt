@@ -1,4 +1,4 @@
-package com.hijab2.bestecker2
+package com.takeonetrip.smartboy
 
 import io.flutter.embedding.android.FlutterActivity
 

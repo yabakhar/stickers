@@ -46,7 +46,7 @@ class AdsManager {
 
   static Future<InterstitialAd> createInterAd() async {
     await InterstitialAd.load(
-        adUnitId: InterstitialAd.testAdUnitId, //FCC_INTER_1,
+        adUnitId: STCIK_INTER_1, //FCC_INTER_1,
         request: AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) async {

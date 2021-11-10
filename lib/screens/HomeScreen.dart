@@ -2,6 +2,7 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:whatsapp_stickers_flutter/consts/admob-info.dart';
 import '../services/ad_state.dart';
 import '../services/ads_manager.dart';
 import '../utils/anchored_adaptive_banner_adSize.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (adState.bannerAdUnitId != null) {
           banner = BannerAd(
             listener: adState.adListener,
-            adUnitId: BannerAd.testAdUnitId, //adState.bannerAdUnitId,
+            adUnitId: STCIK_HOME_BANNER, //adState.bannerAdUnitId,
             request: AdRequest(),
             size: size,
           )..load();
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Share.text(
                     'Share App',
-                    'https://play.google.com/store/apps/details?id=com.hijab2.bestecker2',
+                    'https://play.google.com/store/apps/details?id=com.takeonetrip.smartboy',
                     'text/plain');
               }),
           TextButton(
@@ -118,8 +119,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             bottom: 3,
             child: Container(
-                width: (size != null) ? size.width.toDouble() : MediaQuery.of(context).size.width,
-                 height: (size != null) ? size.height.toDouble() : 100,
+                width: (size != null)
+                    ? size.width.toDouble()
+                    : MediaQuery.of(context).size.width,
+                height: (size != null) ? size.height.toDouble() : 100,
                 child: /* trenary to check if the id exist in the db then take an action*/
                     Visibility(
                         visible: showAd,
@@ -133,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _launchURL() async {
-    const url = 'https://play.google.com/store/apps/developer?id=BeStickers';
+    const url = 'https://play.google.com/store/apps/developer?id=takeonetrip';
     if (await canLaunch(url)) {
       await launch(url);
     } else {

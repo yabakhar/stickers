@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_whatsapp_stickers/flutter_whatsapp_stickers.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:whatsapp_stickers_flutter/consts/admob-info.dart';
 import 'package:whatsapp_stickers_flutter/utils/utils.dart';
 import '../services/ad_state.dart';
 import '../utils/anchored_adaptive_banner_adSize.dart';
@@ -27,12 +28,12 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
   bool showAd = true;
   AnchoredAdaptiveBannerAdSize size;
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   banner.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    banner.dispose();
+    super.dispose();
+  }
 
   @override
   void didChangeDependencies() {
@@ -44,7 +45,7 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
         if (adState.bannerAdUnitId != null) {
           banner = BannerAd(
             listener: adState.adListener,
-            adUnitId: BannerAd.testAdUnitId, //adState.bannerAdUnitId,
+            adUnitId: STCIK_DETAIL_BANNER, //adState.bannerAdUnitId,
             request: AdRequest(),
             size: size,
           )..load();
@@ -85,12 +86,14 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
   @override
   Widget build(BuildContext context) {
     List totalStickers = stickerPack[4];
-    // List<Widget> fakeBottomButtons = new List<Widget>();
-    // fakeBottomButtons.add(
-    //   Container(
-    //     height: 50.0,
-    //   ),
-    // );
+    List<Widget> fakeBottomButtons = new List<Widget>();
+    print("anna hna ============================== ana hna");
+    fakeBottomButtons.add(
+      Container(
+        color: Colors.red,
+        height: 50.0,
+      ),
+    );
     Widget depInstallWidget;
     if (stickerPack[5] == true) {
       depInstallWidget = Padding(
@@ -211,7 +214,6 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
           ),
         ),
       ]),
-
       // persistentFooterButtons: fakeBottomButtons,
     );
   }
