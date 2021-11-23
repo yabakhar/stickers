@@ -28,12 +28,12 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
   bool showAd = true;
   AnchoredAdaptiveBannerAdSize size;
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    banner.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   banner.dispose();
+  //   super.dispose();
+  // }
 
   @override
   void didChangeDependencies() {
@@ -86,14 +86,12 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
   @override
   Widget build(BuildContext context) {
     List totalStickers = stickerPack[4];
-    List<Widget> fakeBottomButtons = new List<Widget>();
-    print("anna hna ============================== ana hna");
-    fakeBottomButtons.add(
-      Container(
-        color: Colors.red,
-        height: 50.0,
-      ),
-    );
+    // List<Widget> fakeBottomButtons = new List<Widget>();
+    // fakeBottomButtons.add(
+    //   Container(
+    //     height: 50.0,
+    //   ),
+    // );
     Widget depInstallWidget;
     if (stickerPack[5] == true) {
       depInstallWidget = Padding(
@@ -214,6 +212,7 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
           ),
         ),
       ]),
+
       // persistentFooterButtons: fakeBottomButtons,
     );
   }

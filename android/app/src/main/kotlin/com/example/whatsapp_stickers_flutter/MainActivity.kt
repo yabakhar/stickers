@@ -1,4 +1,4 @@
-package com.takeonetrip.smartboy
+package com.bestickers.newblack5
 
 import io.flutter.embedding.android.FlutterActivity
 

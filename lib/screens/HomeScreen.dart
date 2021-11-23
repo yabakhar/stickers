@@ -1,7 +1,7 @@
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:whatsapp_stickers_flutter/consts/admob-info.dart';
 import '../services/ad_state.dart';
 import '../services/ads_manager.dart';
@@ -89,10 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color(0xff62c1d9),
               ),
               onPressed: () {
-                Share.text(
-                    'Share App',
-                    'https://play.google.com/store/apps/details?id=com.takeonetrip.smartboy',
-                    'text/plain');
+                Share.share(
+                  
+                    'https://play.google.com/store/apps/details?id=com.bestickers.newblack5',
+
+                    subject: 'Share App',);
               }),
           TextButton(
               child: Container(
@@ -136,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _launchURL() async {
-    const url = 'https://play.google.com/store/apps/developer?id=takeonetrip';
+    const url = 'https://play.google.com/store/apps/developer?id=BeStickers';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
