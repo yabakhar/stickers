@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bestickers.newblack5">
+    package="com.bestickers.hijab">
    <application
-        android:label="Memoji India Muslim Hijab Stickers for WhatsApp"
+        android:label="Whatsapp Hijab Stickers"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -39,6 +39,6 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2590043858470635~8641813362"/>
+            android:value="ca-app-pub-2590043858470635~7878310897"/>
     </application>
 </manifest>

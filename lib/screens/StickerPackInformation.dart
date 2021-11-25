@@ -45,7 +45,7 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
         if (adState.bannerAdUnitId != null) {
           banner = BannerAd(
             listener: adState.adListener,
-            adUnitId: STCIK_DETAIL_BANNER, //adState.bannerAdUnitId,
+            adUnitId: STICK_DETAIL_BANNER, //adState.bannerAdUnitId,
             request: AdRequest(),
             size: size,
           )..load();
@@ -202,10 +202,8 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
         Positioned(
           bottom: 3,
           child: Container(
-            width: (size != null)
-                ? size.width.toDouble()
-                : MediaQuery.of(context).size.width,
-            height: (size != null) ? size.height.toDouble() : 100,
+            width: size.width.toDouble(),
+            height: size.height.toDouble(),
             child: Visibility(
                 visible: showAd,
                 child: banner == null ? SizedBox() : AdWidget(ad: banner)),

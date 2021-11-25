@@ -1,7 +1,7 @@
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
 import 'package:whatsapp_stickers_flutter/consts/admob-info.dart';
 import '../services/ad_state.dart';
 import '../services/ads_manager.dart';
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (adState.bannerAdUnitId != null) {
           banner = BannerAd(
             listener: adState.adListener,
-            adUnitId: STCIK_HOME_BANNER, //adState.bannerAdUnitId,
+            adUnitId: STICK_HOME_BANNER,
             request: AdRequest(),
             size: size,
           )..load();
@@ -89,11 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color(0xff62c1d9),
               ),
               onPressed: () {
-                Share.share(
-                  
-                    'https://play.google.com/store/apps/details?id=com.bestickers.newblack5',
-
-                    subject: 'Share App',);
+                Share.text(
+                    'Share App',
+                    'https://play.google.com/store/apps/details?id=com.bestickers.hijab',
+                    'text/plain');
               }),
           TextButton(
               child: Container(
@@ -116,14 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          StickerList(banner: banner),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50.0),
+            child: StickerList(banner: banner),
+          ),
           Positioned(
             bottom: 3,
             child: Container(
-                width: (size != null)
-                    ? size.width.toDouble()
-                    : MediaQuery.of(context).size.width,
-                height: (size != null) ? size.height.toDouble() : 100,
+                width: size.width.toDouble(),
+                height: size.height.toDouble(),
                 child: /* trenary to check if the id exist in the db then take an action*/
                     Visibility(
                         visible: showAd,

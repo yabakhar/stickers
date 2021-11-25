@@ -27,7 +27,6 @@ class _StickerListState extends State<StickerList> {
     String data =
         await rootBundle.loadString("sticker_packs/sticker_packs.json");
     final response = json.decode(data);
-
     for (int i = 0; i < response['sticker_packs'].length; i++) {
       Provider.of<StickerListModel>(context, listen: false)
           .addSticker(response['sticker_packs'][i]);
@@ -178,7 +177,7 @@ class _StickerListState extends State<StickerList> {
         onPressed: () async {
           // heeeerrrrreeeee <=x=>
           print("interrrr ===========> 1");
-          
+
           whatsAppStickers.addStickerPack(
             packageName: WhatsAppPackage.Consumer,
             stickerPackIdentifier: identifier,
@@ -188,7 +187,7 @@ class _StickerListState extends State<StickerList> {
               result: result,
               error: error,
               successCallback: () async {
-                 AdsManager.showInter();
+                AdsManager.showInter();
                 _checkInstallationStatuses();
               },
               context: context,

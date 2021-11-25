@@ -1,4 +1,4 @@
-package com.bestickers.newblack5
+package com.bestickers.hijab
 
 import io.flutter.embedding.android.FlutterActivity
 
