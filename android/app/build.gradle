@@ -73,7 +73,20 @@ flutter {
     source '../..'
 }
 
+repositories {
+    google()
+    mavenCentral()
+    jcenter()
+  
+    //Tapdaq SDK and Adapters
+     maven { url "https://android-sdk.tapdaq.com" }
+  }
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.tapdaq.sdk:Tapdaq-BaseSDK:7.9.1'
+    //Adapters - These will automatically pull ad network dependencies
+
+    implementation 'com.tapdaq.sdk:TapdaqAdMobAdapter:7.9.1'
 }
