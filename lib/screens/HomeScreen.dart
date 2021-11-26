@@ -1,7 +1,8 @@
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
+import 'package:tapdaq_flutter/tapdaq_flutter.dart';
 import 'package:whatsapp_stickers_flutter/consts/admob-info.dart';
 import '../services/ad_state.dart';
 import '../services/ads_manager.dart';
@@ -15,60 +16,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  BannerAd banner;
+  TapdaqBanner banner;
   bool showAd = true;
-  AnchoredAdaptiveBannerAdSize size;
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   banner.dispose();
-  //   super.dispose();
-  // }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adState = Provider.of<AdState>(context);
-    adState.initialization.then((value) async {
-      size = await anchoredAdaptiveBannerAdSize(context);
-      setState(() {
-        if (adState.bannerAdUnitId != null) {
-          banner = BannerAd(
-            listener: adState.adListener,
-            adUnitId: STICK_HOME_BANNER,
-            request: AdRequest(),
-            size: size,
-          )..load();
-        }
-      });
-    });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    // banner = BannerAd(
-    //     adUnitId: BannerAd.testAdUnitId,
-    //     size: AdSize.fullBanner,
-    //     request: AdRequest(),
-    //     listener: BannerAdListener(onAdLoaded: (Ad ad) async {
-    //       // print("==AD ID=>" + ad.responseInfo.responseId);
-    //       // if (await AdsGlobalUtils.isAdDisplayable(
-    //       //     ad.responseInfo.responseId, 'banner')) {
-    //       //   print(
-    //       //       "BANNER HAS BEEN APPROVED ======");
-    //       //   showAdState(true);
-    //       // } else {
-    //       //  ad.dispose();
-    //       //   showAdState(false);
-    //       //   print(
-    //       //       " HOME BANNER NOT APPROVED =====");
-    //       // }
-    //     }));
-    // banner.load();
+    banner = AdsManager.bannerInit();
+    banner.createState();
   }
 
   @override
@@ -89,10 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color(0xff62c1d9),
               ),
               onPressed: () {
-                Share.text(
-                    'Share App',
-                    'https://play.google.com/store/apps/details?id=com.bestickers.hijab',
-                    'text/plain');
+                Share.share(
+                    'Check out 42 Swifty App on playstore https://play.google.com/store/apps/details?id=com.bestickers.hijab',
+                    subject: 'Check it out!');
               }),
           TextButton(
               child: Container(
@@ -122,14 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             bottom: 3,
             child: Container(
-                width: size.width.toDouble(),
-                height: size.height.toDouble(),
-                child: /* trenary to check if the id exist in the db then take an action*/
-                    Visibility(
-                        visible: showAd,
-                        child: banner == null
-                            ? SizedBox()
-                            : AdWidget(ad: banner))),
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                child: banner),
           ),
         ],
       ),

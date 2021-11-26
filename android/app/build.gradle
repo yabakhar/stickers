@@ -86,7 +86,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.tapdaq.sdk:Tapdaq-BaseSDK:7.9.1'
-    //Adapters - These will automatically pull ad network dependencies
 
+    //Adapters - These will automatically pull ad network dependencie
     implementation 'com.tapdaq.sdk:TapdaqAdMobAdapter:7.9.1'
+
+    implementation 'com.tapdaq.sdk:TapdaqInmobiAdapter:7.9.1'
+
+    implementation 'com.tapdaq.sdk:TapdaqUnityAdsAdapter:7.9.1'
+
+    implementation 'com.tapdaq.sdk:TapdaqAppLovinAdapter:7.9.1'
+
+    implementation 'com.tapdaq.sdk:TapdaqAdColonyAdapter:7.9.1'
 }

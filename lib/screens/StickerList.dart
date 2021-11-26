@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_whatsapp_stickers/flutter_whatsapp_stickers.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:tapdaq_flutter/tapdaq_flutter.dart';
 import 'package:whatsapp_stickers_flutter/components/ReusableImage.dart';
 import 'package:whatsapp_stickers_flutter/modals/InstallStickersModal.dart';
 import 'package:whatsapp_stickers_flutter/modals/StickerListModal.dart';
@@ -13,7 +14,7 @@ import '../services/ads_manager.dart';
 import 'StickerPackInformation.dart';
 
 class StickerList extends StatefulWidget {
-  BannerAd banner;
+  TapdaqBanner banner;
 
   StickerList({this.banner});
   @override
@@ -22,6 +23,7 @@ class StickerList extends StatefulWidget {
 
 class _StickerListState extends State<StickerList> {
   final WhatsAppStickers whatsAppStickers = WhatsAppStickers();
+  TapdaqInterstitial inter;
 
   void _loadStickers() async {
     String data =
@@ -69,7 +71,9 @@ class _StickerListState extends State<StickerList> {
   void initState() {
     super.initState();
     _loadStickers();
-    AdsManager.createInterAd();
+
+    inter = AdsManager.interInit();
+    inter.load();
   }
 
   @override
@@ -175,9 +179,6 @@ class _StickerListState extends State<StickerList> {
         color: Colors.teal,
         tooltip: 'Add Sticker to WhatsApp',
         onPressed: () async {
-          // heeeerrrrreeeee <=x=>
-          print("interrrr ===========> 1");
-
           whatsAppStickers.addStickerPack(
             packageName: WhatsAppPackage.Consumer,
             stickerPackIdentifier: identifier,
@@ -187,13 +188,13 @@ class _StickerListState extends State<StickerList> {
               result: result,
               error: error,
               successCallback: () async {
-                AdsManager.showInter();
+                inter.show();
                 _checkInstallationStatuses();
               },
               context: context,
             ),
           );
-          AdsManager.createInterAd();
+          inter.load();
         },
       );
     }

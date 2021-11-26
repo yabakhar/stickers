@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_whatsapp_stickers/flutter_whatsapp_stickers.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
-import 'package:whatsapp_stickers_flutter/consts/admob-info.dart';
+import 'package:tapdaq_flutter/tapdaq_flutter.dart';
 import 'package:whatsapp_stickers_flutter/utils/utils.dart';
-import '../services/ad_state.dart';
-import '../utils/anchored_adaptive_banner_adSize.dart';
 import '../services/ads_manager.dart';
 
 class StickerPackInformation extends StatefulWidget {
   final List stickerPack;
-  BannerAd banner;
+  TapdaqBanner banner;
 
   StickerPackInformation(this.stickerPack, this.banner);
   @override
@@ -24,35 +20,9 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
 
   _StickerPackInformationState(this.stickerPack); //constructor
 
-  BannerAd banner;
+  TapdaqBanner banner;
+  TapdaqInterstitial inter;
   bool showAd = true;
-  AnchoredAdaptiveBannerAdSize size;
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   banner.dispose();
-  //   super.dispose();
-  // }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adState = Provider.of<AdState>(context);
-    adState.initialization.then((value) async {
-      size = await anchoredAdaptiveBannerAdSize(context);
-      setState(() {
-        if (adState.bannerAdUnitId != null) {
-          banner = BannerAd(
-            listener: adState.adListener,
-            adUnitId: STICK_DETAIL_BANNER, //adState.bannerAdUnitId,
-            request: AdRequest(),
-            size: size,
-          )..load();
-        }
-      });
-    });
-  }
 
   void _checkInstallationStatuses() async {
     print("Total Stickers : ${stickerPack.length}");
@@ -80,7 +50,8 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    AdsManager.createInterAd();
+    inter = AdsManager.interInit();
+    inter.load();
   }
 
   @override
@@ -119,13 +90,14 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
               successCallback: () async {
                 setState(() {
                   _checkInstallationStatuses();
-                  AdsManager.showInter();
+                  // AdsManager.showInter();
+                  inter.show();
                 });
               },
               context: context,
             ),
           );
-          AdsManager.createInterAd();
+          inter.load();
         },
       );
     }
@@ -202,12 +174,9 @@ class _StickerPackInformationState extends State<StickerPackInformation> {
         Positioned(
           bottom: 3,
           child: Container(
-            width: size.width.toDouble(),
-            height: size.height.toDouble(),
-            child: Visibility(
-                visible: showAd,
-                child: banner == null ? SizedBox() : AdWidget(ad: banner)),
-          ),
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                child: banner),
         ),
       ]),
 
